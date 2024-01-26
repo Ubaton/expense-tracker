@@ -1,7 +1,10 @@
-import BudgetForm from "@/components/Budget/BudgetForm";
-import BudgetList from "@/components/Budget/BudgetList";
+import Dashboard from "@/views/Dashboard";
 import Image from "next/image";
 
 export default function Home() {
-  return <div>Hi</div>;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }

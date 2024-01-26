@@ -11,7 +11,7 @@ const ExpeneseList: React.FC<ExpenseListProps> = ({ expenses }) => {
       <ul>
         {expenses.map((expense, index) => (
           <li key={index}>
-            <strong>{expense.description}</strong>: ${expense.amount}
+            <strong>{expense.description}</strong>: R {expense.amount}
           </li>
         ))}
       </ul>
