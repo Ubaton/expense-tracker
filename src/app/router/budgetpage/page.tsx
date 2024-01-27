@@ -3,7 +3,7 @@
 import BudgetForm from "@/components/Budget/BudgetForm";
 import React from "react";
 
-const badgetrouter = () => {
+const badgetpage = () => {
   const handleBudgetSubmit = (formData: {
     category: string;
     amount: number;
@@ -18,4 +18,4 @@ const badgetrouter = () => {
   );
 };
 
-export default badgetrouter;
+export default badgetpage;
