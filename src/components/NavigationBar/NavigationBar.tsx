@@ -1,40 +1,76 @@
-import Link from "next/link";
-import React from "react";
-import Button from "./Button/page";
+import React, { useState } from "react";
+import {
+  AreaChartOutlined,
+  WalletOutlined,
+  DollarOutlined,
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { Menu } from "antd";
 
-const NavigationBar = () => {
+type MenuItem = Required<MenuProps>["items"][number];
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: "group"
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
+const items: MenuItem[] = [
+  getItem("Budget", "sub1", <WalletOutlined />, [
+    getItem("Budget Form", "1"),
+    getItem("Budget List", "2"),
+  ]),
+  getItem("Expenses", "sub2", <AreaChartOutlined />, [
+    getItem("Expenses Form", "5"),
+    getItem("Expenses List", "6"),
+    getItem("Other Expenses", "sub3", null, [
+      getItem("Expenses List 1", "7"),
+      getItem("Expenses List 2", "8"),
+    ]),
+  ]),
+  getItem("Savings", "sub4", <DollarOutlined />, [
+    getItem("Savings Goal Form", "9"),
+    getItem("Savings Goal List", "10"),
+  ]),
+];
+
+// submenu keys of first level
+const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
+
+const App: React.FC = () => {
+  const [openKeys, setOpenKeys] = useState(["sub1"]);
+
+  const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+    if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
+
   return (
-    <div className=" bg-zinc-900 w-[12rem] p-4">
-      <h1 className="text-zinc-50 font-bold text-lg pb-4">Expense Tracker</h1>
-      <ul className="flex flex-col items-center justify-center space-y-2 text-zinc-50">
-        <span className="text-left px-4 hover:bg-zinc-800 w-full py-2 rounded-lg ">
-          <Link href="/badgetpage">
-            <li>Badget</li>
-          </Link>
-        </span>
-        <span className="text-left px-4 hover:bg-zinc-800 w-full py-2 rounded-lg ">
-          <Link href="#">
-            <li>Expense</li>
-          </Link>
-        </span>
-
-        <span className="text-left px-4 hover:bg-zinc-800 w-full py-2 rounded-lg ">
-          <Link href="#">
-            <li>Project</li>
-          </Link>
-        </span>
-
-        <span className="text-left px-4 hover:bg-zinc-800 w-full py-2 rounded-lg ">
-          <Link href="#">
-            <li>List Contact</li>
-          </Link>
-        </span>
-      </ul>
-      <span className="fixed bottom-4">
-        <Button variant="primary">Logout</Button>
-      </span>
+    <div>
+      <h1 className="text-lg p-4 font-bold">Expenses Tracker</h1>
+      <Menu
+        mode="inline"
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
+        style={{ width: 200, height: "100vh" }}
+        items={items}
+      />
     </div>
   );
 };
 
-export default NavigationBar;
+export default App;
