@@ -42,9 +42,12 @@ const items: MenuItem[] = [
     getItem("Savings Goal Form", "9"),
     getItem("Savings Goal List", "10"),
   ]),
+  getItem("Investment", "sub5", <DollarOutlined />, [
+    getItem("Investment", "11"),
+    getItem("Investment List", "12"),
+  ]),
 ];
 
-// submenu keys of first level
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
 const App: React.FC = () => {
@@ -61,14 +64,18 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-lg p-4 font-bold">Expenses Tracker</h1>
-      <Menu
-        mode="inline"
-        openKeys={openKeys}
-        onOpenChange={onOpenChange}
-        style={{ width: 200, height: "100vh" }}
-        items={items}
-      />
+      <h1 className="text-xl p-4 font-bold border border-spacing-2">
+        Expenses Tracker
+      </h1>
+      <div>
+        <Menu
+          mode="inline"
+          openKeys={openKeys}
+          onOpenChange={onOpenChange}
+          style={{ width: 210, height: "100vh" }}
+          items={items}
+        />
+      </div>
     </div>
   );
 };

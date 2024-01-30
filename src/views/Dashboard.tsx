@@ -10,11 +10,12 @@ const Dashboard: React.FC = () => {
   const expenses = [{ description: "Dinner", amount: 500 }];
 
   return (
-    <div className="flex flex-row min-h-screen overflow-hidden ">
+    <div className="flex flex-col h-screen overflow-hidden ">
       <NavigationBar />
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl text-center font-bold ">Financial Dashboard</h1>
-
+      <h1 className="text-4xl text-center font-bold pt-24 ">
+        Financial Dashboard
+      </h1>
+      <div className="flex flex-col justify-center items-center w-full">
         <div className="flex flex-row h-screen items-center space-x-8 p-4">
           <div className="flex flex-row">
             <BudgetList budgets={budgets} />
